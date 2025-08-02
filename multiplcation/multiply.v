@@ -11,10 +11,11 @@ module multiply #(
 
     parameter MUL_WIDTH = WIDTH - 1; // Considering last bit is signed bit
 
+
    
 
-    reg [WIDTH-1:0] a_temp;
-    reg [WIDTH-1:0] b_temp;
+    reg [WIDTH-1:0] a_temp = 0;
+    reg [WIDTH-1:0] b_temp = 0;
 
     reg [2*MUL_WIDTH-1:0] a_op;
     reg [MUL_WIDTH-1:0] b_op;
@@ -29,8 +30,13 @@ module multiply #(
         if (a_in != a_temp || b_in != b_temp) begin
             a_temp <= a_in;
             b_temp <= b_in;
-            a_op <= a_in[MUL_WIDTH-1:0];
-            b_op <= b_in[MUL_WIDTH-1:0];
+            if (a_in>b_in) begin
+                a_op <= a_in[MUL_WIDTH-1:0];
+                b_op <= b_in[MUL_WIDTH-1:0];
+            end else begin
+                a_op <= a_in[MUL_WIDTH-1:0];
+                b_op <= b_in[MUL_WIDTH-1:0];
+            end
             ready <= 1'b0;
             product_op <= 0;
         end
