@@ -1,0 +1,1 @@
+Attempt to create a rtl logic to implement fft
