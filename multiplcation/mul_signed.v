@@ -1,4 +1,4 @@
-module multiply #(
+module mul_signed #(
     parameter WIDTH = 8
 ) (
     input clkin,
