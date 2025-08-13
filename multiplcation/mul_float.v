@@ -1,7 +1,7 @@
 module mul_float (
-    input  wire [31:0] a,      // IEEE 754 single-precision float
-    input  wire [31:0] b,      // IEEE 754 single-precision float
-    output wire [31:0] result  // IEEE 754 single-precision float
+    input  wire [31:0] a,      
+    input  wire [31:0] b,       
+    output wire [31:0] result   
 );
 
     // Extract sign, exponent, mantissa
@@ -26,6 +26,7 @@ module mul_float (
 
     // Mantissa multiplication using multiply module
     wire [47:0] mant_prod;
+
     multiply #(.WIDTH(24)) mant_mult (
         .a(frac_a),
         .b(frac_b),
@@ -33,7 +34,7 @@ module mul_float (
     );
 
 
-    // Normalize result
+    // shift 
     wire norm = mant_prod[47];
     wire [7:0] exp_res = exp_sum + norm;
     wire [22:0] mant_res = norm ? mant_prod[46:24] : mant_prod[45:23];
